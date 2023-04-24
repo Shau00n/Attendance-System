@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('timecards', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->integer('employee_id')->unsigned();
+            $table->dateTime('clock_in');
+            $table->dateTime('clock_out')->nullable();
             $table->timestamps();
+
+            $table->foreign('employee_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
         });
     }
 
