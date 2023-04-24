@@ -13,14 +13,10 @@ return new class extends Migration
     {
         Schema::create('timecards', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('employee_id')->unsigned();
+            $table->foreignId('user_id')->constrained('users');
             $table->dateTime('clock_in');
             $table->dateTime('clock_out')->nullable();
             $table->timestamps();
-
-            $table->foreign('employee_id')
-                  ->references('id')->on('users')
-                  ->onDelete('cascade');
         });
     }
 
