@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Attendance;
 
 interface AttendanceRepositoryInterface
 {
