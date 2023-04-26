@@ -4,7 +4,7 @@ namespace App\Repositories\Calendar;
 
 interface CalendarRepositoryInterface
 {
-    public function all();
+    public function getAll();
     public function findById($id);
     public function create(array $data);
     public function update(array $data, $id);

@@ -13,7 +13,7 @@ class CalendarRepository implements CalendarRepositoryInterface
         $this->calendar = $calendar;
     }
 
-    public function all()
+    public function getAll()
     {
         return $this->calendar->all();
     }
