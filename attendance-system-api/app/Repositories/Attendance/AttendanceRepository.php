@@ -4,7 +4,7 @@ namespace App\Repositories\Attendance;
 
 use App\Models\Attendance;
 
-class AttendanceRepository
+class AttendanceRepository implements AttendanceRepositoryInterface
 {
     protected $attendance;
 
@@ -20,7 +20,7 @@ class AttendanceRepository
     }
 
     // 単一データ表示機能
-    public function getById($id)
+    public function findById($id)
     {
         return $this->attendance->findOrFail($id);
     }
