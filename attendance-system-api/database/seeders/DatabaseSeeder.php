@@ -18,21 +18,6 @@ class DatabaseSeeder extends Seeder
         // ユーザーテーブルにデータを追加
         User::factory()->count(3)->create();
 
-        // カレンダーテーブルにデータを追加
-        Calendar::insert([
-            [
-                'date' => '2023-04-01',
-                'is_holiday' => true,
-                'holiday_name' => '春の日'
-            ],
-            // ...（省略）...
-            [
-                'date' => '2023-04-30',
-                'is_holiday' => false,
-                'holiday_name' => null
-            ]
-        ]);
-
         // 勤怠記録テーブルにデータを追加
         $users = User::all();
         foreach ($users as $user) {
