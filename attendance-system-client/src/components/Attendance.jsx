@@ -1,5 +1,25 @@
 import { useState, useEffect } from 'react';
 import api from '../services/api';
+import styled from 'styled-components';
+
+const StyledAttendance = styled.div`
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+`;
+
+const AttendanceButton = styled.button`
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: ${(props) => (props.clockedIn ? '#dc3545' : '#28a745')};
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+`;
 
 const Attendance = () => {
   const [attendance, setAttendance] = useState(null);
@@ -52,22 +72,25 @@ const Attendance = () => {
   }
 
   return (
-    <div>
+    <StyledAttendance>
       <h2>Attendance</h2>
       <div>
         {clockedIn ? (
-          <button onClick={handleClockOut}>Clock Out</button>
+          <AttendanceButton clockedIn={clockedIn} onClick={handleClockOut}>
+            Clock Out
+          </AttendanceButton>
         ) : (
-          <button onClick={handleClockIn}>Clock In</button>
+          <AttendanceButton clockedIn={clockedIn} onClick={handleClockIn}>
+            Clock In
+          </AttendanceButton>
         )}
       </div>
       <div>
         <p>Clocked in: {attendance.clock_in}</p>
         <p>Clocked out: {attendance.clock_out ?? '-'}</p>
       </div>
-    </div>
+    </StyledAttendance>
   );
 };
 
 export default Attendance;
-
