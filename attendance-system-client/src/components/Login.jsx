@@ -1,44 +1,85 @@
 import { useState } from 'react';
 import api from '../services/api';
+import styled from 'styled-components';
+
+const StyledForm = styled.form`
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+`;
+
+const StyledLabel = styled.label`
+  display: block;
+  margin-bottom: 10px;
+`;
+
+const StyledInput = styled.input`
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+`;
+
+const StyledButton = styled.button`
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+`;
+
+// エラーメッセージを表示するコンポーネント
+const ErrorMessage = styled.p`
+  color: red;
+`;
 
 const Login = ({ setLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null); // エラー状態を管理
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await api.post('/login', { email, password });
-      localStorage.setItem('token', response.data.token);
+      // cookieにtokenを保存
+      document.cookie = `token=${response.data.token}`;
       setLoggedIn(true);
     } catch (error) {
-      alert('ログインに失敗しました。');
+      // エラーメッセージをセット
+      setError('ログインに失敗しました。');
       console.error(error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
+    <StyledForm onSubmit={handleSubmit}>
+      <StyledLabel>
         メールアドレス：
-        <input
+        <StyledInput
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-      </label>
-      <label>
+      </StyledLabel>
+      <StyledLabel>
         パスワード：
-        <input
+        <StyledInput
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
-      <button type="submit">ログイン</button>
-    </form>
+      </StyledLabel>
+      <StyledButton type="submit">ログイン</StyledButton>
+      {error && <ErrorMessage>{error}</ErrorMessage>} 
+    </StyledForm>
   );
 };
 
